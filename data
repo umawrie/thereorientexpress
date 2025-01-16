@@ -1,1 +1,63 @@
+import os
+import pandas as pd
+from datetime import datetime
+from spotipy import Spotify
+from spotipy.oauth2 import SpotifyClientCredentials
+from dotenv import load_dotenv
 
+# Load environment variables
+load_dotenv()
+CLIENT_ID = os.getenv('SPOTIFY_CLIENT_ID')
+CLIENT_SECRET = os.getenv('SPOTIFY_CLIENT_SECRET')
+
+# Initialize Spotipy client
+sp = Spotify(auth_manager=SpotifyClientCredentials(
+    client_id=CLIENT_ID,
+    client_secret=CLIENT_SECRET
+))
+
+# List of artist names and their Spotify IDs
+artist_ids = {
+    'Bruno Mars': '0du5cEVh5yTK9QJze8zA0C',
+    'Stray Kids': '2dIgFjalVxs4ThymZ67YCE',
+    'Charli XCX': '25uiPmTg16RbhZWAqwLBy5',
+    'Olivia Rodrigo': '1McMsnEElThX1knmY4oliG',
+    'TWICE': '7n2Ycct7Beij7Dj7meI4X0',
+    'Laufey': '7gW0r5CkdEUMm42w9XpyZO',
+    'ROSE': '3eVa5w3URK5duf6eyVDbu9',
+    'Jimin': '1oSPZhvZMIrWW5I41kPkkY',
+    'ENHYPEN': '5t5FqBwTcgKTaWmfEbwQY9',
+    'Jung Kook': '6HaGTQPmzraVmaVxvz6EUc'
+}
+
+def fetch_artist_data():
+    """Fetch followers, popularity, and genres for the listed artists."""
+    data = []
+    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    
+    for artist_name, artist_id in artist_ids.items():
+        artist = sp.artist(artist_id)
+        data.append({
+            'timestamp': timestamp,
+            'artist_name': artist_name,
+            'followers': artist['followers']['total'],
+            'popularity': artist['popularity'],
+            'genres': ', '.join(artist['genres'])  # Join genres list into a single string
+        })
+    
+    return pd.DataFrame(data)
+
+# Define the correct path to the output file
+output_file = 'trend_data/artist_trend_analysis_with_genres.csv'
+
+# Ensure the 'trend_data' folder exists
+os.makedirs('trend_data', exist_ok=True)
+
+# Fetch data and append to a CSV file
+df = fetch_artist_data()
+if os.path.exists(output_file):
+    df.to_csv(output_file, mode='a', header=False, index=False)
+else:
+    df.to_csv(output_file, index=False)
+
+print(f"Spotify trend data saved to '{output_file}'")
