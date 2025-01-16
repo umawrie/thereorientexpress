@@ -17,7 +17,7 @@ To achieve these goals, we will create a public GitHub repository to share the c
 
 - **Spotify Data Collection**:
   - Follower growth over time.
-  - Popularity scores for selected artists.
+  - Popularity scores for selected artists of asian descent.
   - Genre distribution analysis.
 
 - **Media Trend Analysis**:
