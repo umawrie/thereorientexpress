@@ -24,7 +24,7 @@ To achieve these goals, we will create a public GitHub repository to share the c
   - Correlation of music releases with spikes in fashion or beauty trends.
   - Tracking search behavior for key terms
 
-- **Insights and Visualizations**:
+- **Insights and Visualizations(coming soon)**:
   - Line charts, bar graphs, and scatter plots to explore trends.
   - Data storytelling through Jupyter notebooks.
 
