@@ -16,7 +16,7 @@ To achieve these goals, we will create a public GitHub repository to share the c
 ## Features
 
 - **Spotify Data Collection**:
-  - Follower growth over time.
+  - Follower growth over time.(coming soon)
   - Popularity scores for selected artists of asian descent.
   - Genre distribution analysis.
 
